@@ -1,7 +1,5 @@
 # ios_tv_news_app
-ios_tv_news_app brings to you the latest news in Gujarati, Top stories, Top sub stories, G plus stories, City News, breaking news, national news, international news, News videos, E-Paper with Main, District editions and Magazines.
-
-
+ios_tv_news_app brings to you the latest news in Gujarati, Top stories, Top sub stories, G plus stories, City News, Breaking news, National news, International news, News videos, E-Paper with Main, District editions and Magazines.
 
 
 # Technical details
@@ -38,3 +36,8 @@ It has 3 tabs
 - Table View
 - Collection View
 - Image View
+
+
+# Other
+- SDWeb Image
+- URL Session
