@@ -19,16 +19,18 @@ It has 3 tabs
 3. E-Paper
 
 1] Home - This section will show News from different categories like:
-    - Tops Stories
-    - Top Sub-stories
-    - G plus stories
-    - Ahmedabad
-    - Mumbai
-    - India
-    - World
+- Tops Stories
+- Top Sub-stories
+- G plus stories
+- Ahmedabad
+- Mumbai
+- India
+- World   
     
 2] Videos   - This section will show Video news
+
 3] E-Paper  - This section will show E-Paper with Main Editions, District Editions and Magazines.
+
 
 # UI controls 
 
