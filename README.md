@@ -1,6 +1,6 @@
 
 # iOS TV OS News App
-![video](/GS_TV.gif)
+![video](/Media/GS_TV.gif)
 
 The iOS TV OS News App - It brings the latest news in Gujarati to your TV. Stay updated with top stories, sub-stories, G plus stories, city news, breaking news, national news, international news, news videos, and e-paper editions with main, district editions, and magazines.
 
