@@ -14,11 +14,13 @@ protocol NewsViewCellDelegate: AnyObject {
 
 class NewsViewCell: UITableViewCell {
 
+    // MARK: - IBOutlets
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var cnstStoryViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var clvStory: UICollectionView!
     @IBOutlet weak var btnShowMore: UIButton!
     
+    // MARK: - Global Variable
     var type: CellType = .topStories
     
     var arrTopStories : [Article] = [Article]()
@@ -46,6 +48,7 @@ class NewsViewCell: UITableViewCell {
 
 }
 
+// MARK: - Collection Delegate and Datasource Methods
 extension NewsViewCell :UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -71,8 +74,7 @@ extension NewsViewCell :UICollectionViewDelegate, UICollectionViewDataSource,UIC
         
         switch type {
         case .topStories:
-//            print("Top-Stories")
-            if let cell: TopStoriesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopStoriesCell", for: indexPath) as? TopStoriesCell {                
+            if let cell: TopStoriesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopStoriesCell", for: indexPath) as? TopStoriesCell {
                 cell.lblTitle.text = self.arrTopStories[indexPath.row].heading
                 cell.type = type
 
@@ -83,7 +85,6 @@ extension NewsViewCell :UICollectionViewDelegate, UICollectionViewDataSource,UIC
                 return cell
             }
         case .topSubStories:
-//            print("Top Sub-Stories")
             if let cell: ArticleCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArticleCell", for: indexPath) as? ArticleCell {
                 cell.lblTitle.text = self.arrTopSubStories[indexPath.row].heading
                 cell.type = type
@@ -95,7 +96,6 @@ extension NewsViewCell :UICollectionViewDelegate, UICollectionViewDataSource,UIC
                 return cell
             }
         case .gPlusTopStories:
-//            print("Top Sub-Stories")
             if let cell: ArticleCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArticleCell", for: indexPath) as? ArticleCell {
                 cell.lblTitle.text = self.arrGplusTopStories[indexPath.row].heading
                 cell.type = type
@@ -151,8 +151,6 @@ extension NewsViewCell :UICollectionViewDelegate, UICollectionViewDataSource,UIC
                 return cell
             }
         }
-        
-        
         return UICollectionViewCell()
     }
     
@@ -173,7 +171,6 @@ extension NewsViewCell :UICollectionViewDelegate, UICollectionViewDataSource,UIC
         case .worldNews:
             return CGSize(width: 500, height: 360)
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -247,36 +244,6 @@ class YourViewController: UIViewController, NewsViewCellDelegate {
             self.present(detailVC, animated: true, completion: nil)
         }
     }
-    
-//    func didSelectItem(_ item: Article?, _ gplusItem: GplusStoryDocument?, _ cityItem: Article?, _ mumbaiItem: Article?) {
-//        if let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "DetailsVC") as? DetailsVC {
-//            detailVC.selectedNews = item
-//            detailVC.selectedGplusNews = gplusItem
-//            detailVC.selectedCityNews = cityItem
-//            detailVC.selectedMumbaiNews = mumbaiItem
-//            self.present(detailVC, animated: true, completion: nil)
-//        }
-//    }
-    
-//    func didSelectItem(_ item: Article?, _ gplusItem: GplusStoryDocument?, _ cityItem: Article?) {
-//        if let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "DetailsVC") as? DetailsVC {
-//            detailVC.selectedNews = item
-//            detailVC.selectedGplusNews = gplusItem
-//            detailVC.selectedCityNews = cityItem
-//            self.present(detailVC, animated: true, completion: nil)
-//        }
-//    }
-    
-//    func didSelectItem(_ item: Article?, _ gplusItem: GplusStoryDocument?) {
-//        if let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "DetailsVC") as? DetailsVC {
-//            detailVC.selectedNews = item
-//            detailVC.selectedGplusNews = gplusItem
-//            self.present(detailVC, animated: true, completion: nil)
-//        }
-//    }
-    
-    
-   
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsViewCell", for: indexPath) as! NewsViewCell

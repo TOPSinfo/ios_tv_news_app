@@ -94,5 +94,4 @@ struct MetaKeyword : Codable {
         _id = try values.decodeIfPresent(String.self, forKey: ._id)
         name = try values.decodeIfPresent(String.self, forKey: .name)
     }
-
 }

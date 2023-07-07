@@ -10,21 +10,23 @@ import UIKit
 
 class EpaperVC: UIViewController {
     
+    // MARK: - IBOutlets
     @IBOutlet weak var collViewPaper: UICollectionView!
     
+    // MARK: - Global Variable
     var arrMainEditions : [Main_editions] = [Main_editions]()
     var arrMagazines : [Magazines] = [Magazines]()
     var arrDistrictEditions : [District_editions] = [District_editions]()
-    
     var paperType: CellpaperType = .mainEdition
     var strSelectedEpaperID = ""
     var strSelectedDate = ""
     
+    // MARK: - Viewcontroller life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         registerNibs()
-        getEpaper()
+        makeAPIRequestToGetEpaper()
     }
     
     override func viewDidLayoutSubviews() {
@@ -36,6 +38,7 @@ class EpaperVC: UIViewController {
         collViewPaper.register(UINib(nibName: "EpaperViewCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "EpaperViewCollectionViewCell")
     }
     
+    // MARK: - IBAction methods
     @IBAction func btnMainEditionsClicked(_ sender: Any) {
         paperType = .mainEdition
         collViewPaper.reloadData()
@@ -52,7 +55,7 @@ class EpaperVC: UIViewController {
     }
 }
 
-
+// MARK: - Collection Delegate and Datasource Methods
 extension EpaperVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch paperType {
@@ -121,6 +124,7 @@ extension EpaperVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         }
     }
     
+    // MARK: - Did Update Focus
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if let previousIndexPath = context.previouslyFocusedIndexPath {
             // Reset the border color of the previously focused cell
@@ -142,7 +146,8 @@ extension EpaperVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
 
 
 extension EpaperVC {
-    func getEpaper() {
+    // MARK: - API Call
+    func makeAPIRequestToGetEpaper() {
         guard let url = URL(string: APICall.gEpaper) else {
             print("Invalid URL")
             return

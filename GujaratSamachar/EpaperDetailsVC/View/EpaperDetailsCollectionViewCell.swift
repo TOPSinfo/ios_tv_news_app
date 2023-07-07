@@ -8,6 +8,8 @@
 import UIKit
 
 class EpaperDetailsCollectionViewCell: UICollectionViewCell {
+    
+    // MARK: - IBOutlets
     @IBOutlet weak var imgPaper: UIImageView!
     @IBOutlet weak var lblPageNumbers: UILabel!
     
@@ -15,6 +17,7 @@ class EpaperDetailsCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
+    // MARK: - Did Update Focus
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         coordinator.addCoordinatedAnimations({ [weak self] in
             if self?.isFocused ?? false{

@@ -9,9 +9,11 @@ import UIKit
 
 class EpaperDetailsVC: UIViewController {
     
+    // MARK: - IBOutlets
     @IBOutlet weak var collViewPaperDetail: UICollectionView!
     @IBOutlet weak var imgNewPaper: UIImageView!
     
+    // MARK: - Global Variable
     var arrEpaperDetails : [EpaperImage] = [EpaperImage]()
     var strSelectedDate = ""
     var strSelectedEpaperID = ""
@@ -27,17 +29,19 @@ class EpaperDetailsVC: UIViewController {
     // Movement limitations
     let maximumTranslation: CGFloat = 100.0
     
+    // MARK: - Viewcontroller life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         registerNibs()
-        getEpaperDetails(selectedDate: strSelectedDate, selectedEpaperID: strSelectedEpaperID)
+        makeAPIRequestToGetEpaperDetails(selectedDate: strSelectedDate, selectedEpaperID: strSelectedEpaperID)
     }
     
     func registerNibs(){
         collViewPaperDetail.register(UINib(nibName: "EpaperDetailsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "EpaperDetailsCollectionViewCell")
     }
     
+    // MARK: - IBAction methods
     @IBAction func btnZoomInClicked(_ sender: Any) {
         // Increase the zoom scale of the image view
         let newScale = currentScale * 1.1
@@ -101,6 +105,7 @@ class EpaperDetailsVC: UIViewController {
     
 }
 
+// MARK: - Collection Delegate and Datasource Methods
 extension EpaperDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return arrEpaperDetails.count
@@ -136,6 +141,7 @@ extension EpaperDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource,
         imgNewPaper.sd_setImage(with: URL(string: selectedImageName), placeholderImage: UIImage(named: "gs_default"))
     }
     
+    // MARK: - Did Update Focus
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         
         if let previousIndexPath = context.previouslyFocusedIndexPath {
@@ -160,7 +166,8 @@ extension EpaperDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource,
 }
 
 extension EpaperDetailsVC {
-    func getEpaperDetails(selectedDate: String, selectedEpaperID: String) {
+    // MARK: - API Call
+    func makeAPIRequestToGetEpaperDetails(selectedDate: String, selectedEpaperID: String) {
         guard let url = URL(string: APICall.gEpaperDetails) else {
             print("Invalid URL")
             return

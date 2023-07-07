@@ -45,24 +45,6 @@
             </objects>
             <point key="canvasLocation" x="1197" y="-107"/>
         </scene>
-        <!--SearchVC-->
-        <scene sceneID="znn-gd-Rgl">
-            <objects>
-                <viewController storyboardIdentifier="SearchVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QJ1-60-peM" customClass="SearchVC" customModule="GujaratSamachar" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7f5-hN-GeX"/>
-                        <viewControllerLayoutGuide type="bottom" id="zwO-cO-tn0"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="wuK-7g-tDi">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="hwi-c2-E5L"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5vB-d2-3Y6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3263" y="-107"/>
-        </scene>
         <!--VideosVC-->
         <scene sceneID="DEF-8h-2aL">
             <objects>
@@ -97,7 +79,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f3N-qA-66F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5299" y="-107"/>
+            <point key="canvasLocation" x="3247" y="-107"/>
         </scene>
         <!--Video DetailVC-->
         <scene sceneID="mcs-xP-Iqu">
@@ -170,78 +152,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gKS-e7-g6Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5299" y="1157"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="UsL-ur-KaL">
-            <objects>
-                <viewController id="j5a-vP-8mq" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="bit-ID-DeX"/>
-                        <viewControllerLayoutGuide type="bottom" id="bpR-d8-Ikq"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="4iX-1L-hHJ">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="debugging" translatesAutoresizingMaskIntoConstraints="NO" id="a0t-ZW-CaS">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
-                            </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="isu-Aa-U71">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QYk-0d-A87">
-                                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
-                                        <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HFy-gz-zUT">
-                                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1000"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1000" id="mf8-gt-SdP"/>
-                                                </constraints>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="HFy-gz-zUT" secondAttribute="bottom" constant="80" id="K8T-8b-muk"/>
-                                            <constraint firstItem="HFy-gz-zUT" firstAttribute="top" secondItem="QYk-0d-A87" secondAttribute="top" id="P0m-Jr-SQu"/>
-                                            <constraint firstAttribute="trailing" secondItem="HFy-gz-zUT" secondAttribute="trailing" id="Qnb-OO-QHT"/>
-                                            <constraint firstItem="HFy-gz-zUT" firstAttribute="leading" secondItem="QYk-0d-A87" secondAttribute="leading" id="lgP-bz-WpR"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="QYk-0d-A87" secondAttribute="bottom" id="HMl-0g-V5y"/>
-                                    <constraint firstItem="QYk-0d-A87" firstAttribute="leading" secondItem="isu-Aa-U71" secondAttribute="leading" id="Ugb-D2-j7l"/>
-                                    <constraint firstAttribute="trailing" secondItem="QYk-0d-A87" secondAttribute="trailing" id="fVY-Qc-Ypr"/>
-                                    <constraint firstItem="QYk-0d-A87" firstAttribute="height" secondItem="isu-Aa-U71" secondAttribute="height" placeholder="YES" id="oUa-yg-eKJ"/>
-                                    <constraint firstItem="QYk-0d-A87" firstAttribute="width" secondItem="isu-Aa-U71" secondAttribute="width" id="uOo-O8-B4w"/>
-                                    <constraint firstItem="QYk-0d-A87" firstAttribute="top" secondItem="isu-Aa-U71" secondAttribute="top" id="vbi-GA-t1e"/>
-                                </constraints>
-                            </scrollView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="kFq-nH-rgJ"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="isu-Aa-U71" secondAttribute="trailing" id="5gM-Qc-lqp"/>
-                            <constraint firstAttribute="bottom" secondItem="isu-Aa-U71" secondAttribute="bottom" id="ByH-aG-ZgZ"/>
-                            <constraint firstItem="isu-Aa-U71" firstAttribute="top" secondItem="4iX-1L-hHJ" secondAttribute="top" id="P7T-db-qQl"/>
-                            <constraint firstItem="a0t-ZW-CaS" firstAttribute="leading" secondItem="4iX-1L-hHJ" secondAttribute="leading" id="Syj-VL-e6J"/>
-                            <constraint firstAttribute="trailing" secondItem="a0t-ZW-CaS" secondAttribute="trailing" id="Ujh-Wl-73u"/>
-                            <constraint firstItem="isu-Aa-U71" firstAttribute="leading" secondItem="4iX-1L-hHJ" secondAttribute="leading" id="fbF-IJ-JdS"/>
-                            <constraint firstAttribute="bottom" secondItem="a0t-ZW-CaS" secondAttribute="bottom" id="h8T-Cy-124"/>
-                            <constraint firstItem="a0t-ZW-CaS" firstAttribute="top" secondItem="4iX-1L-hHJ" secondAttribute="top" id="pxX-fh-JMz"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="txtViewDescription" destination="HFy-gz-zUT" id="8oE-Nc-Dsa"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lSQ-NK-TGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3263" y="1141"/>
+            <point key="canvasLocation" x="3247" y="1157"/>
         </scene>
         <!--EpaperVC-->
         <scene sceneID="cMS-Yl-fsS">
@@ -604,7 +515,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ONI-Jo-H5O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5339" y="2440"/>
+            <point key="canvasLocation" x="5322" y="-107"/>
         </scene>
     </scenes>
     <resources>

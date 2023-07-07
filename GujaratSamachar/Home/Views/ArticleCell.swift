@@ -9,8 +9,11 @@ import UIKit
 
 class ArticleCell: UICollectionViewCell {
     
+    // MARK: - IBOutlets
     @IBOutlet weak var imgStory: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
+    
+    // MARK: - Global Variable
     var type: CellType = .topSubStories
 
     override func awakeFromNib() {
@@ -20,6 +23,7 @@ class ArticleCell: UICollectionViewCell {
         imgStory.contentMode = .scaleAspectFill
     }
     
+    // MARK: - Did Update Focus
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         coordinator.addCoordinatedAnimations({ [weak self] in
             if self?.isFocused ?? false{
@@ -31,5 +35,4 @@ class ArticleCell: UICollectionViewCell {
             }
         }, completion: nil)
     }
-    
 }

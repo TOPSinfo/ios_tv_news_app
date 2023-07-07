@@ -8,6 +8,8 @@
 import UIKit
 
 class ShowMoreNewsCell: UICollectionViewCell {
+    
+    // MARK: - IBOutlets
     @IBOutlet weak var imgStory: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
 
@@ -19,6 +21,7 @@ class ShowMoreNewsCell: UICollectionViewCell {
         imgStory.contentMode = .scaleAspectFill
     }
     
+    // MARK: - Did Update Focus
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         coordinator.addCoordinatedAnimations({ [weak self] in
             if self?.isFocused ?? false{

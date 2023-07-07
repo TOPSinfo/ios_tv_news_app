@@ -13,10 +13,11 @@ protocol VideoTableViewCellDelegate: AnyObject {
 
 class VideosViewCell: UITableViewCell {
 
-//    @IBOutlet weak var lblTitle: UILabel!
+    // MARK: - IBOutlets
     @IBOutlet weak var cnstVideosiewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var clvVideos: UICollectionView!
 
+    // MARK: - Global Variable
     weak var delegate: VideoTableViewCellDelegate?
     var arrVideoLists : [Datum] = [Datum]()
     var tblHeight : CGFloat = 0
@@ -24,7 +25,6 @@ class VideosViewCell: UITableViewCell {
     let minLineSpacing : CGFloat = 30
     let minInterSpacing : CGFloat = 30
 
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         clvVideos.delegate = self
@@ -38,6 +38,7 @@ class VideosViewCell: UITableViewCell {
 
 }
 
+// MARK: - Collection Delegate and Datasource Methods
 extension VideosViewCell :UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.arrVideoLists.count
@@ -86,4 +87,3 @@ extension VideosViewCell :UICollectionViewDelegate, UICollectionViewDataSource,U
         return minInterSpacing
     }
 }
-

@@ -9,9 +9,13 @@ import UIKit
 
 class VideosVC: UIViewController,VideoTableViewCellDelegate {
 
+    // MARK: - IBOutlets
     @IBOutlet weak var tblVideosViewList: UITableView!
+    
+    // MARK: - Global Variable
     var arrVideoLists : [Datum] = [Datum]()
 
+    // MARK: - Viewcontroller life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
@@ -37,6 +41,7 @@ class VideosVC: UIViewController,VideoTableViewCellDelegate {
     
 }
 
+// MARK: - Tableview Delegate and Datasource Methods
 extension VideosVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -45,7 +50,6 @@ extension VideosVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell : VideosViewCell = tableView.dequeueReusableCell(withIdentifier: "VideosViewCell") as? VideosViewCell{
-//            cell.lblTitle.text = "Videos"
             cell.delegate = self
 
             cell.arrVideoLists = self.arrVideoLists
@@ -68,6 +72,8 @@ extension VideosVC : UITableViewDelegate, UITableViewDataSource {
 
 
 extension VideosVC {
+    
+    // MARK: - API Call
     func makeAPIRequestForVideoList() {
         
         // Create a URL object for the API endpoint
@@ -100,12 +106,6 @@ extension VideosVC {
                 if let data = data {
                     // Process the data as needed
                     do {
-//                        let jsonObject = try JSONSerialization.jsonObject(with: data,options: .mutableLeaves)
-//                        print("Final Video Response is  \(jsonObject)")
-                        
-                       
-                        print("Preety Printed response is ")
-
                         if let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers),
                            let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) {
                             print(String(decoding: jsonData, as: UTF8.self))
@@ -119,20 +119,13 @@ extension VideosVC {
                             
                             DispatchQueue.main.async { [self] in
                                 tblVideosViewList.reloadData()
-
-//                                print("TOP STORIES")
-//                                for (index, headline) in arrVideoLists.enumerated() {
-//                                    print("\(index+1)] \(self.arrVideoLists[index].heading)")
-//                                }
-//                                print("\n")
                             }
                         } catch {
                             debugPrint(error)
                         }
                     } catch {
                         print("\(error.localizedDescription)")
-                    }
-                    
+                    }                    
                     
                 }
             } else {

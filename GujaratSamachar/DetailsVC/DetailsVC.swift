@@ -11,26 +11,28 @@ import UIKit
 
 class DetailsVC: UIViewController, TVApplicationControllerDelegate {
     
+    // MARK: - IBOutlets
     @IBOutlet weak var txtViewDescription: UITextView!
+    
+    // MARK: - Global Variable
     var selectedNews: Article?
     var selectedGplusNews: GplusStoryDocument?
     var selectedCityNews: Article?
     var selectedMumbaiNews: Article?
     var selectedWorldNews: Article?
     
-    
-    
     var strHeading : String = ""
     var strHeadingOne : String = ""
     var strHeadingTwo : String = ""
     var strContent : String = ""
     
-    
+    // MARK: - Viewcontroller life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
     }
     
+    // MARK: - Set UI
     func setUI(){
        
         if selectedNews != nil{
@@ -152,37 +154,8 @@ class DetailsVC: UIViewController, TVApplicationControllerDelegate {
 
     }
     
+    // MARK: - IBAction methods
     @IBAction func btnBackClicked(_ sender: Any) {
         self.dismiss(animated: true)
-    }
-}
-
-extension String {
-    var htmlToAttributedString: NSAttributedString? {
-        guard let data = data(using: .utf8) else { return nil }
-        let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
-            .documentType: NSAttributedString.DocumentType.html,
-            .characterEncoding: String.Encoding.utf8.rawValue
-        ]
-        return try? NSAttributedString(data: data, options: options, documentAttributes: nil)
-    }
-}
-
-extension UIColor {
-    convenience init(hex: String) {
-        var hexString = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-
-        if hexString.hasPrefix("#") {
-            hexString.remove(at: hexString.startIndex)
-        }
-
-        var rgbValue: UInt64 = 0
-        Scanner(string: hexString).scanHexInt64(&rgbValue)
-
-        let red = CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0
-        let green = CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0
-        let blue = CGFloat(rgbValue & 0x0000FF) / 255.0
-
-        self.init(red: red, green: green, blue: blue, alpha: 1.0)
     }
 }

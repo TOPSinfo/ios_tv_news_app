@@ -9,8 +9,10 @@ import UIKit
 
 class ShowMoreNewsVC: UIViewController {
 
+    // MARK: - IBOutlets
     @IBOutlet weak var clvShowMoreNews: UICollectionView!
     
+    // MARK: - Global Variable
     var arrTopStories : [Article] = [Article]()
     var arrTopSubStories : [Article] = [Article]()
     var arrGplusTopStories : [GplusStoryDocument] = [GplusStoryDocument]()
@@ -18,9 +20,6 @@ class ShowMoreNewsVC: UIViewController {
     var arrMumbaiNews : [Article] = [Article]()
     var arrIndiaNews : [Article] = [Article]()
     var arrWorldNews : [Article] = [Article]()
-
-
-//    var selectedNewsDataType : Int = 0
     var selectedNewsDataType: NewsDataType = .topStories
 
     //Paggination
@@ -35,36 +34,23 @@ class ShowMoreNewsVC: UIViewController {
         sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     )
     
-    
+    // MARK: - Viewcontroller life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         registerNibs()
-        
         makeAPIRequestForNews(newsDataType: selectedNewsDataType.rawValue, pageNumber: 1)
-//        makeAPIRequestForNews(newsDataType: NewsDataType.topSubStories.rawValue, pageNumber: 1)
-//        makeAPIRequestForNews(newsDataType: NewsDataType.gPlusTopStories.rawValue, pageNumber: 1)
-//        makeAPIRequestForNews(newsDataType: NewsDataType.cityNews.rawValue, pageNumber: 1)
-//        makeAPIRequestForNews(newsDataType: NewsDataType.mumbaiNews.rawValue, pageNumber: 1)
-//        makeAPIRequestForNews(newsDataType: NewsDataType.indiaNews.rawValue, pageNumber: 1)
-//        makeAPIRequestForNews(newsDataType: NewsDataType.worldNews.rawValue, pageNumber: 1)
-
-        
-//        clvShowMoreNews.reloadData()
     }
     
     func registerNibs(){
-        
         clvShowMoreNews?.collectionViewLayout = columnLayout
         clvShowMoreNews?.contentInsetAdjustmentBehavior = .always
-        
         clvShowMoreNews.register(UINib(nibName: "ShowMoreNewsCell", bundle: nil), forCellWithReuseIdentifier: "ShowMoreNewsCell")
     }
-    
 }
 
+// MARK: - Collection Delegate and Datasource Methods
 extension ShowMoreNewsVC :UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return self.arrTopStories.count
         
         switch selectedNewsDataType {
         case .topStories:
@@ -81,7 +67,6 @@ extension ShowMoreNewsVC :UICollectionViewDelegate, UICollectionViewDataSource,U
             return self.arrIndiaNews.count
         case .worldNews:
             return self.arrWorldNews.count
-        
         default:
             return 0
         }
@@ -215,20 +200,19 @@ extension ShowMoreNewsVC :UICollectionViewDelegate, UICollectionViewDataSource,U
 }
 
 extension ShowMoreNewsVC {
+    // MARK: - Scrollview Delegate Methods
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if(self.clvShowMoreNews.contentOffset.y >= (self.clvShowMoreNews.contentSize.height - self.clvShowMoreNews.bounds.size.height)) {
             if !isPageRefreshing {
                 isPageRefreshing = true
                 pageNumber = pageNumber + 1
-                print("pageNumber is \(pageNumber)")
-//                YourApi(page1: page)
-//                makeAPIRequestForTopStories(pageNumber: pageNumber)
                 makeAPIRequestForNews(newsDataType: selectedNewsDataType.rawValue, pageNumber: pageNumber)
-                
             }
         }
     }
 }
+
+// MARK: - UICollection FlowLayout
 class ColumnFlowLayout: UICollectionViewFlowLayout {
 
     let cellsPerRow: Int
@@ -260,83 +244,10 @@ class ColumnFlowLayout: UICollectionViewFlowLayout {
         context.invalidateFlowLayoutDelegateMetrics = newBounds.size != collectionView?.bounds.size
         return context
     }
-
 }
 
-//extension ShowMoreNewsVC {
-//    func makeAPIRequestForTopStories(pageNumber : Int) {
-//
-//        // Create a URL object for the API endpoint
-//
-//        var strAPI : String = APICall.topStories + "\(pageNumber)"
-//
-//        guard let url = URL(string: strAPI) else {
-//            print("Invalid URL")
-//            return
-//        }
-//
-//        // Create a URLSession object
-//        let session = URLSession.shared
-//
-//        // Create a data task
-//        let task = session.dataTask(with: url) { [self] (data, response, error) in
-//            // Check for any errors
-//            if let error = error {
-//                print("Error: \(error.localizedDescription)")
-//                return
-//            }
-//
-//            // Check if a response was received
-//            guard let httpResponse = response as? HTTPURLResponse else {
-//                print("Invalid response")
-//                return
-//            }
-//            isPageRefreshing = false
-//            // Check the status code
-//            if httpResponse.statusCode == 200 {
-//                // Parse and use the response data
-//                if let data = data {
-//                    // Process the data as needed
-//                    do {
-//                        let jsonObject = try JSONSerialization.jsonObject(with: data,options: .mutableLeaves)
-////                        print("json object is \(jsonObject)")
-//
-//                        do {
-//                            let storyJson = try JSONDecoder().decode(StoryModel.self, from: data)
-//
-//                            if pageNumber == 1 {
-//                                arrTopStories = storyJson.data.articles
-//                            }else{
-//                                arrTopStories.append(contentsOf: storyJson.data.articles)
-//                            }
-//
-//
-//                            DispatchQueue.main.async { [self] in
-//                                clvShowMoreNews.reloadData()
-////                                print("TOP STORIES")
-////                                for (index, headline) in arrTopStories.enumerated() {
-////                                    print("\(index+1)] \(self.arrTopStories[index].heading)")
-////                                }
-////                                print("\n")
-//                            }
-//                        } catch {
-//                            debugPrint(error)
-//                        }
-//                    } catch {
-//                        print("\(error.localizedDescription)")
-//                    }
-//
-//
-//                }
-//            } else {
-//                print("HTTP Error: \(httpResponse.statusCode)")
-//            }
-//        }
-//        task.resume()
-//    }
-//}
-
 extension ShowMoreNewsVC {
+    // MARK: - API Call
     func makeAPIRequestForNews(newsDataType : Int, pageNumber : Int) {
         // Create a URL object for the API endpoint
         var strURL : String = ""
@@ -388,7 +299,6 @@ extension ShowMoreNewsVC {
                     // Process the data as needed
                     do {
                         let jsonObject = try JSONSerialization.jsonObject(with: data,options: .mutableLeaves)
-                        //print("json object is \(jsonObject)")
                         
                         do {
                             if newsDataType == NewsDataType.topStories.rawValue {

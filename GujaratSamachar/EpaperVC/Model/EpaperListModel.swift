@@ -126,5 +126,4 @@ struct District_editions : Codable {
         image_name = try values.decodeIfPresent(String.self, forKey: .image_name)
         photo_video_category = try values.decodeIfPresent(String.self, forKey: .photo_video_category)
     }
-
 }

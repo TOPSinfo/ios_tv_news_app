@@ -9,7 +9,10 @@ import UIKit
 
 class HomeVC: UIViewController {
 
+    // MARK: - IBOutlets
     @IBOutlet weak var homeDataTableView: UITableView!
+    
+    // MARK: - Global Variable
     var arrTopStories : [Article] = [Article]()
     var arrTopSubStories : [Article] = [Article]()
     var arrGplusTopStories : [GplusStoryDocument] = [GplusStoryDocument]()
@@ -18,6 +21,7 @@ class HomeVC: UIViewController {
     var arrIndiaNews : [Article] = [Article]()
     var arrWorldNews : [Article] = [Article]()
 
+    // MARK: - Viewcontroller life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
@@ -39,6 +43,7 @@ class HomeVC: UIViewController {
     }
 }
 
+// MARK: - Tableview Delegate and Datasource Methods
 extension HomeVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CellType.allCases.count
@@ -117,13 +122,7 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
         }
         return UITableViewCell()
     }
-    
-    @objc func btnShowMoreClicked(sender: UIButton){
-//    func btnShowMoreClicked(){
-       //...
-        print("show more index is \(sender.tag)")
-    }
-    
+ 
     func tableView(_ tableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {
         return false
     }
@@ -153,15 +152,15 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
                 showMoreNewsVC.arrTopStories = self.arrTopStories
             }
             
-            
             self.present(showMoreNewsVC, animated: true, completion: nil)
         }
     }
-
 }
 
 //API
 extension HomeVC {
+    
+    // MARK: - API Call
     func makeAPIRequestForNews(newsDataType : Int, pageNumber : Int) {
         // Create a URL object for the API endpoint
         var strURL : String = ""

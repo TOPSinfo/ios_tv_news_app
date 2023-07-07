@@ -10,9 +10,10 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    // MARK: - Global Variable
     var window: UIWindow?
 
-
+    // MARK: - Appdelegate methods
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         setUpApp()
@@ -36,14 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
+    // MARK: - SetUp App
     func setUpApp(){
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
         let homeVC = getViewController("HomeVC", onStoryboard: "Main")
         homeVC.tabBarItem.title = "Home"
-            
-//        let searchVC = getViewController("SearchVC", onStoryboard: "Main")
-//        searchVC.tabBarItem.title = "Search"
 
         let videosVC = getViewController("VideosVC", onStoryboard: "Main")
         videosVC.tabBarItem.title = "Videos"
@@ -56,6 +55,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = tabbarController
         self.window?.makeKeyAndVisible()
     }
-
 }
-

@@ -8,6 +8,8 @@
 import UIKit
 
 class EpaperViewCollectionViewCell: UICollectionViewCell {
+    
+    // MARK: - IBOutlets
     @IBOutlet weak var imgPaper: UIImageView!
     @IBOutlet weak var lblPaper: UILabel!
     @IBOutlet weak var lblPaperDate: UILabel!
@@ -16,7 +18,7 @@ class EpaperViewCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
-    
+    // MARK: - Did Update Focus
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         coordinator.addCoordinatedAnimations({ [weak self] in
             if self?.isFocused ?? false{

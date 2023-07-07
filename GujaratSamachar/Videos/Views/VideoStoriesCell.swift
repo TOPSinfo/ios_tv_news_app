@@ -8,8 +8,11 @@
 import UIKit
 
 class VideoStoriesCell: UICollectionViewCell {
+    // MARK: - IBOutlets
     @IBOutlet weak var imgVideoThumb: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
+    
+    // MARK: - Global Variable
     var tblHeight : CGFloat = 0
 
     override func awakeFromNib() {
@@ -19,6 +22,7 @@ class VideoStoriesCell: UICollectionViewCell {
         imgVideoThumb.contentMode = .scaleAspectFill
     }
     
+    // MARK: - Did Update Focus
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         coordinator.addCoordinatedAnimations({ [weak self] in
             if self?.isFocused ?? false{

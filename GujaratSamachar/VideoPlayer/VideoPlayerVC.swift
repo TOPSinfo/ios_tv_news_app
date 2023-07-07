@@ -9,6 +9,7 @@ import UIKit
 
 class VideoPlayerVC: UIViewController {
 
+    // MARK: - Viewcontroller life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
