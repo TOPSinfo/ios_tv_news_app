@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="21507" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="appleTV" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ArticleCell" id="Rz2-K0-ksD" customClass="ArticleCell" customModule="GujaratSamachar" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="794" height="351"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="794" height="351"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gs_default" translatesAutoresizingMaskIntoConstraints="NO" id="egx-fs-gNK">
+                        <rect key="frame" x="8" y="8" width="778" height="335"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PM Modi Gifts 7.5-Carat Lab-Grown Diamond To US First Lady Jill Biden" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xoL-X5-zja">
+                        <rect key="frame" x="30" y="259" width="734" height="62"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="7PP-Ag-gPX"/>
+            <constraints>
+                <constraint firstItem="egx-fs-gNK" firstAttribute="top" secondItem="Rz2-K0-ksD" secondAttribute="top" constant="8" id="0w6-4D-kqB"/>
+                <constraint firstItem="xoL-X5-zja" firstAttribute="leading" secondItem="Rz2-K0-ksD" secondAttribute="leading" constant="30" id="2zb-gn-Gvp"/>
+                <constraint firstAttribute="trailing" secondItem="egx-fs-gNK" secondAttribute="trailing" constant="8" id="4DA-06-UJP"/>
+                <constraint firstAttribute="bottom" secondItem="xoL-X5-zja" secondAttribute="bottom" constant="30" id="Qsv-Ex-zuu"/>
+                <constraint firstAttribute="bottom" secondItem="egx-fs-gNK" secondAttribute="bottom" constant="8" id="dgb-6r-NRq"/>
+                <constraint firstAttribute="trailing" secondItem="xoL-X5-zja" secondAttribute="trailing" constant="30" id="fdT-tZ-gsb"/>
+                <constraint firstItem="egx-fs-gNK" firstAttribute="leading" secondItem="Rz2-K0-ksD" secondAttribute="leading" constant="8" id="gE9-Gd-P3F"/>
+            </constraints>
+            <connections>
+                <outlet property="imgStory" destination="egx-fs-gNK" id="laD-Li-xiR"/>
+                <outlet property="lblTitle" destination="xoL-X5-zja" id="FKm-fK-5Bn"/>
+            </connections>
+            <point key="canvasLocation" x="148" y="-24"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="gs_default" width="1401" height="901"/>
+    </resources>
+</document>

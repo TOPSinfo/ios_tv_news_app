@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="21507" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="appleTV" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="VideosViewCell" id="fBs-An-CcD" userLabel="VideosViewCell" customClass="VideosViewCell" customModule="GujaratSamachar" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="2016" height="540"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fBs-An-CcD" id="S0Q-fX-qc8">
+                <rect key="frame" x="0.0" y="0.0" width="2016" height="540"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="D7D-8L-WTT">
+                        <rect key="frame" x="20" y="10" width="1976" height="520"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="520" id="pyc-Qe-gAM"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="30" minimumInteritemSpacing="10" id="6Bi-de-r7H">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <connections>
+                            <outlet property="dataSource" destination="fBs-An-CcD" id="YMc-SN-tmI"/>
+                            <outlet property="delegate" destination="fBs-An-CcD" id="eMP-TA-HcW"/>
+                        </connections>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="D7D-8L-WTT" firstAttribute="top" secondItem="S0Q-fX-qc8" secondAttribute="top" constant="10" id="AUg-gg-qvP"/>
+                    <constraint firstAttribute="bottom" secondItem="D7D-8L-WTT" secondAttribute="bottom" constant="10" id="P6d-Gg-vGJ"/>
+                    <constraint firstAttribute="trailing" secondItem="D7D-8L-WTT" secondAttribute="trailing" constant="20" id="xW1-26-MId"/>
+                    <constraint firstItem="D7D-8L-WTT" firstAttribute="leading" secondItem="S0Q-fX-qc8" secondAttribute="leading" constant="20" id="yfF-no-Zeu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="1ks-Xo-ai1"/>
+            <connections>
+                <outlet property="clvVideos" destination="D7D-8L-WTT" id="Uca-VU-2kQ"/>
+                <outlet property="cnstVideosiewHeightConstraint" destination="pyc-Qe-gAM" id="gpg-gs-FcY"/>
+            </connections>
+            <point key="canvasLocation" x="-52" y="-109"/>
+        </tableViewCell>
+    </objects>
+</document>

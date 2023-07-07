@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="21507" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="appleTV" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VideoStoriesCell" id="Rz2-K0-ksD" customClass="VideoStoriesCell" customModule="GujaratSamachar" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="794" height="351"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="794" height="351"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etz-ZB-aS5">
+                        <rect key="frame" x="0.0" y="0.0" width="794" height="351"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gs_default" translatesAutoresizingMaskIntoConstraints="NO" id="xVs-TU-chT">
+                                <rect key="frame" x="8" y="8" width="778" height="335"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PM Modi Gifts 7.5-Carat Lab-Grown Diamond To US First Lady Jill Biden" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0m-PL-5HB">
+                                <rect key="frame" x="30" y="259" width="734" height="62"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="d0m-PL-5HB" secondAttribute="bottom" constant="30" id="9Pi-Wj-eFf"/>
+                            <constraint firstAttribute="trailing" secondItem="xVs-TU-chT" secondAttribute="trailing" constant="8" id="Dyc-Gi-nTo"/>
+                            <constraint firstItem="xVs-TU-chT" firstAttribute="leading" secondItem="etz-ZB-aS5" secondAttribute="leading" constant="8" id="H0j-WR-CyA"/>
+                            <constraint firstItem="xVs-TU-chT" firstAttribute="top" secondItem="etz-ZB-aS5" secondAttribute="top" constant="8" id="ZbB-Ri-NaZ"/>
+                            <constraint firstAttribute="trailing" secondItem="d0m-PL-5HB" secondAttribute="trailing" constant="30" id="f4U-DT-BEE"/>
+                            <constraint firstAttribute="bottom" secondItem="xVs-TU-chT" secondAttribute="bottom" constant="8" id="iLf-M7-5UP"/>
+                            <constraint firstItem="d0m-PL-5HB" firstAttribute="leading" secondItem="etz-ZB-aS5" secondAttribute="leading" constant="30" id="t1b-GT-9ka"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="7PP-Ag-gPX"/>
+            <constraints>
+                <constraint firstItem="etz-ZB-aS5" firstAttribute="leading" secondItem="Rz2-K0-ksD" secondAttribute="leading" id="5of-bx-1dR"/>
+                <constraint firstItem="etz-ZB-aS5" firstAttribute="top" secondItem="Rz2-K0-ksD" secondAttribute="top" id="CXV-4f-mpe"/>
+                <constraint firstAttribute="bottom" secondItem="etz-ZB-aS5" secondAttribute="bottom" id="sDO-75-quq"/>
+                <constraint firstAttribute="trailing" secondItem="etz-ZB-aS5" secondAttribute="trailing" id="wVj-iU-UbR"/>
+            </constraints>
+            <connections>
+                <outlet property="imgVideoThumb" destination="xVs-TU-chT" id="KkH-xH-nhS"/>
+                <outlet property="lblTitle" destination="d0m-PL-5HB" id="EUh-bb-LaE"/>
+            </connections>
+            <point key="canvasLocation" x="148" y="-24"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="gs_default" width="1401" height="901"/>
+    </resources>
+</document>
