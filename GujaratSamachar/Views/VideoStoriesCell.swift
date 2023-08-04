@@ -22,6 +22,18 @@ class VideoStoriesCell: UICollectionViewCell {
         imgVideoThumb.contentMode = .scaleAspectFill
     }
     
+    // MARK: - Configure Cell
+    func configureCell(title : String, objData: Datum, tblHeight : CGFloat){
+        lblTitle.text = objData.title
+        
+        let strImgUrl : String = objData.videoThumb ?? ""
+        let imgURL = String(format: "%@%@",APPCONST.videoImageBaseURL,strImgUrl)
+        print("img url is \(imgURL)")
+        imgVideoThumb.sd_setImage(with: URL(string:  imgURL), placeholderImage: UIImage(named: "gs_default"))
+        imgVideoThumb.contentMode = .scaleAspectFill
+        self.tblHeight = tblHeight
+    }
+    
     // MARK: - Did Update Focus
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         coordinator.addCoordinatedAnimations({ [weak self] in

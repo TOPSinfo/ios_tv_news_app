@@ -1,5 +1,5 @@
 //
-//  ArticleCell.swift
+//  TopStoriesCell.swift
 //  GujaratSamachar
 //
 //  Created by Nand Parikh on 22/06/23.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-class ArticleCell: UICollectionViewCell {
+class TopStoriesCell: UICollectionViewCell {
     
     // MARK: - IBOutlets
     @IBOutlet weak var imgStory: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
     
     // MARK: - Global Variable
-    var type: CellType = .topSubStories
+    var type: CellType = .topStories
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,5 +34,16 @@ class ArticleCell: UICollectionViewCell {
                 self?.imgStory.layer.borderColor = UIColor.clear.cgColor
             }
         }, completion: nil)
+    }
+    
+    // MARK: - Configure Cell
+    func configureCell(title : String, imageURL: String, type : CellType) {
+        lblTitle.text = title
+        self.type = type
+        
+        let imgURL = String(format: "%@%@",APPCONST.imageBaseURL,imageURL)
+        //print("Top Story - imgUrl is \(imgURL)")
+        imgStory.sd_setImage(with: URL(string:  imgURL), placeholderImage: UIImage(named: "gs_default"))
+        imgStory.contentMode = .scaleAspectFill
     }
 }

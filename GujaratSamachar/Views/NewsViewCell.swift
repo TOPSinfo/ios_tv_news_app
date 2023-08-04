@@ -22,15 +22,7 @@ class NewsViewCell: UITableViewCell {
     
     // MARK: - Global Variable
     var type: CellType = .topStories
-    
-    var arrTopStories : [Article] = [Article]()
-    var arrTopSubStories : [Article] = [Article]()
-    var arrGplusTopStories : [GplusStoryDocument] = [GplusStoryDocument]()
-    var arrCityNews : [Article] = [Article]()
-    var arrMumbaiNews : [Article] = [Article]()
-    var arrIndiaNews : [Article] = [Article]()
-    var arrWorldNews : [Article] = [Article]()
-        
+    var arrData : [Any] = [Any]()
     weak var delegate: NewsViewCellDelegate?
     
     override func awakeFromNib() {
@@ -39,35 +31,24 @@ class NewsViewCell: UITableViewCell {
         clvStory.dataSource = self
         registerNibs()
     }
-
   
     func registerNibs(){
         clvStory.register(UINib(nibName: "TopStoriesCell", bundle: nil), forCellWithReuseIdentifier: "TopStoriesCell")
         clvStory.register(UINib(nibName: "ArticleCell", bundle: nil), forCellWithReuseIdentifier: "ArticleCell")
     }
 
+    // MARK: - Configure Cell
+    func configureCell<T>(title : String, modelArray: [T], type : CellType) {
+        lblTitle.text = title
+        arrData = modelArray
+        self.type = type
+    }
 }
 
 // MARK: - Collection Delegate and Datasource Methods
 extension NewsViewCell :UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        switch type {
-        case .topStories:
-            return arrTopStories.count
-        case .topSubStories:
-            return arrTopSubStories.count
-        case .gPlusTopStories:
-            return arrGplusTopStories.count
-        case .cityNews:
-            return arrCityNews.count
-        case .mumbaiNews:
-            return arrMumbaiNews.count
-        case .indiaNews:
-            return arrIndiaNews.count
-        case .worldNews:
-            return arrWorldNews.count
-        }
+        return arrData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -75,102 +56,61 @@ extension NewsViewCell :UICollectionViewDelegate, UICollectionViewDataSource,UIC
         switch type {
         case .topStories:
             if let cell: TopStoriesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopStoriesCell", for: indexPath) as? TopStoriesCell {
-                cell.lblTitle.text = self.arrTopStories[indexPath.row].heading
-                cell.type = type
-
-                let strImgUrl : String = self.arrTopStories[indexPath.row].articleImage
-                let imgURL = String(format: "%@%@",APPCONST.imageBaseURL,strImgUrl)
-                print("Top Story - imgUrl is \(imgURL)")
-                cell.imgStory.sd_setImage(with: URL(string:  imgURL), placeholderImage: UIImage(named: "gs_default"))
-                return cell
+                if let objTopStories : Article = self.arrData[indexPath.row] as? Article {
+                    cell.configureCell(title: objTopStories.heading ?? "", imageURL: objTopStories.articleImage ?? "", type: type)
+                    return cell
+                }
             }
         case .topSubStories:
             if let cell: ArticleCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArticleCell", for: indexPath) as? ArticleCell {
-                cell.lblTitle.text = self.arrTopSubStories[indexPath.row].heading
-                cell.type = type
-                
-                let strImgUrl : String = self.arrTopSubStories[indexPath.row].articleImage
-                let imgURL = String(format: "%@%@",APPCONST.imageBaseURL,strImgUrl)
-                cell.imgStory.sd_setImage(with: URL(string:  imgURL), placeholderImage: UIImage(named: "gs_default"))
-
-                return cell
+                if let objTopSubStories : Article = self.arrData[indexPath.row] as? Article {
+                    cell.configureCell(title: objTopSubStories.heading ?? "", imageURL: objTopSubStories.articleImage ?? "", type: type)
+                    return cell
+                }
             }
         case .gPlusTopStories:
             if let cell: ArticleCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArticleCell", for: indexPath) as? ArticleCell {
-                cell.lblTitle.text = self.arrGplusTopStories[indexPath.row].heading
-                cell.type = type
                 
-                let strImgUrl : String = self.arrGplusTopStories[indexPath.row].articleImage
-                let imgURL = String(format: "%@%@",APPCONST.imageBaseURL,strImgUrl)
-                cell.imgStory.sd_setImage(with: URL(string:  imgURL), placeholderImage: UIImage(named: "gs_default"))
-
-                return cell
+                if let objGPlusTopStories : GplusStoryDocument = self.arrData[indexPath.row] as? GplusStoryDocument {
+                    cell.configureCell(title: objGPlusTopStories.heading ?? "", imageURL: objGPlusTopStories.articleImage ?? "", type: type)
+                    return cell
+                }
             }
         case .cityNews:
             if let cell: TopStoriesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopStoriesCell", for: indexPath) as? TopStoriesCell {
-                cell.lblTitle.text = self.arrCityNews[indexPath.row].heading
-                cell.type = type
-
-                let strImgUrl : String = self.arrCityNews[indexPath.row].articleImage
-                let imgURL = String(format: "%@%@",APPCONST.imageBaseURL,strImgUrl)
-                print("Top Story - imgUrl is \(imgURL)")
-                cell.imgStory.sd_setImage(with: URL(string:  imgURL), placeholderImage: UIImage(named: "gs_default"))
-                return cell
+                if let objCityNews : Article = self.arrData[indexPath.row] as? Article {
+                    cell.configureCell(title: objCityNews.heading ?? "", imageURL: objCityNews.articleImage ?? "", type: type)
+                    return cell
+                }
             }
         case .mumbaiNews:
             if let cell: TopStoriesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopStoriesCell", for: indexPath) as? TopStoriesCell {
-                cell.lblTitle.text = self.arrMumbaiNews[indexPath.row].heading
-                cell.type = type
-
-                let strImgUrl : String = self.arrMumbaiNews[indexPath.row].articleImage
-                let imgURL = String(format: "%@%@",APPCONST.imageBaseURL,strImgUrl)
-                print("Top Story - imgUrl is \(imgURL)")
-                cell.imgStory.sd_setImage(with: URL(string:  imgURL), placeholderImage: UIImage(named: "gs_default"))
-                return cell
+                if let objMumbaiNews : Article = self.arrData[indexPath.row] as? Article {
+                    cell.configureCell(title: objMumbaiNews.heading ?? "", imageURL: objMumbaiNews.articleImage ?? "", type: type)
+                    return cell
+                }
             }
         case .indiaNews:
             if let cell: TopStoriesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopStoriesCell", for: indexPath) as? TopStoriesCell {
-                cell.lblTitle.text = self.arrIndiaNews[indexPath.row].heading
-                cell.type = type
+                if let objIndiaNews : Article = self.arrData[indexPath.row] as? Article {
+                    cell.configureCell(title: objIndiaNews.heading ?? "", imageURL: objIndiaNews.articleImage ?? "", type: type)
+                    return cell
 
-                let strImgUrl : String = self.arrIndiaNews[indexPath.row].articleImage
-                let imgURL = String(format: "%@%@",APPCONST.imageBaseURL,strImgUrl)
-                print("Top Story - imgUrl is \(imgURL)")
-                cell.imgStory.sd_setImage(with: URL(string:  imgURL), placeholderImage: UIImage(named: "gs_default"))
-                return cell
+                }
             }
         case .worldNews:
             if let cell: TopStoriesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopStoriesCell", for: indexPath) as? TopStoriesCell {
-                cell.lblTitle.text = self.arrWorldNews[indexPath.row].heading
-                cell.type = type
-
-                let strImgUrl : String = self.arrWorldNews[indexPath.row].articleImage
-                let imgURL = String(format: "%@%@",APPCONST.imageBaseURL,strImgUrl)
-                print("Top Story - imgUrl is \(imgURL)")
-                cell.imgStory.sd_setImage(with: URL(string:  imgURL), placeholderImage: UIImage(named: "gs_default"))
-                return cell
+                if let objWorldNews : Article = self.arrData[indexPath.row] as? Article {
+                    cell.configureCell(title: objWorldNews.heading ?? "", imageURL: objWorldNews.articleImage ?? "", type: type)
+                    return cell
+                }
             }
         }
         return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        switch type {
-        case .topStories:
-            return CGSize(width: 500, height: 360)
-        case .topSubStories:
-            return CGSize(width: 500, height: 360)
-        case .gPlusTopStories:
-            return CGSize(width: 500, height: 360)
-        case .cityNews:
-            return CGSize(width: 500, height: 360)
-        case .mumbaiNews:
-            return CGSize(width: 500, height: 360)
-        case .indiaNews:
-            return CGSize(width: 500, height: 360)
-        case .worldNews:
-            return CGSize(width: 500, height: 360)
-        }
+        return CGSize(width: 500, height: 360)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -184,32 +124,32 @@ extension NewsViewCell :UICollectionViewDelegate, UICollectionViewDataSource,UIC
         
         switch type {
         case .topStories:
-            if indexPath.row < arrTopStories.count {
-                selectedItem = arrTopStories[indexPath.row]
+            if indexPath.row < arrData.count {
+                selectedItem = arrData[indexPath.row] as? Article
             }
         case .topSubStories:
-            if indexPath.row < arrTopSubStories.count {
-                selectedItem = arrTopSubStories[indexPath.row]
+            if indexPath.row < arrData.count {
+                selectedItem = arrData[indexPath.row] as? Article
             }
         case .gPlusTopStories:
-            if indexPath.row < arrGplusTopStories.count {
-                selectedGplus = arrGplusTopStories[indexPath.row]
+            if indexPath.row < arrData.count {
+                selectedGplus = arrData[indexPath.row] as? GplusStoryDocument
             }
         case .cityNews:
-            if indexPath.row < arrCityNews.count {
-                selectedCityNews = arrCityNews[indexPath.row]
+            if indexPath.row < arrData.count {
+                selectedCityNews = arrData[indexPath.row] as? Article
             }
         case .mumbaiNews:
-            if indexPath.row < arrMumbaiNews.count {
-                selectedMumbaiNews = arrMumbaiNews[indexPath.row]
+            if indexPath.row < arrData.count {
+                selectedMumbaiNews = arrData[indexPath.row] as? Article
             }
         case .indiaNews:
-            if indexPath.row < arrIndiaNews.count {
-                selectedIndiaNews = arrIndiaNews[indexPath.row]
+            if indexPath.row < arrData.count {
+                selectedIndiaNews = arrData[indexPath.row] as? Article
             }
         case .worldNews:
-            if indexPath.row < arrWorldNews.count {
-                selectedMumbaiNews = arrWorldNews[indexPath.row]
+            if indexPath.row < arrData.count {
+                selectedWorldNews = arrData[indexPath.row] as? Article
             }
         }
         

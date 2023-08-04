@@ -23,25 +23,29 @@ class VideoDetailVC: UIViewController {
     // MARK: - Viewcontroller life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        imgPlayerViewThumb.setRadiusToView(cornerRadius: 20)
-        playerview.setRadiusToView(cornerRadius: 20)
-        playerview.setBorderToView(borderColor: UIColor.clear, borderWidth: 10)
-
-        
-        self.lblTitle.text = videoData.metaTitle
-        self.lblDesc.text = videoData.metaDescriptions
-        self.play()
+        configureControl()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.stopVideoOnDisappear()
     }
+    
+    // MARK: - Configure Control
+    func configureControl() {
+        imgPlayerViewThumb.setRadiusToView(cornerRadius: 20)
+        playerview.setRadiusToView(cornerRadius: 20)
+        playerview.setBorderToView(borderColor: UIColor.clear, borderWidth: 10)
+        
+        self.lblTitle.text = videoData.metaTitle
+        self.lblDesc.text = videoData.metaDescriptions
+        self.play()
+    }
 
 }
 
 extension VideoDetailVC {
+    // MARK: - Play
     func play() {
         let url : URL = URL(string: videoURL)!
         playerview.replay()

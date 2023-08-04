@@ -1,18 +1,20 @@
 //
-//  ShowMoreNewsCell.swift
+//  ArticleCell.swift
 //  GujaratSamachar
 //
-//  Created by Nand Parikh on 23/06/23.
+//  Created by Nand Parikh on 22/06/23.
 //
 
 import UIKit
 
-class ShowMoreNewsCell: UICollectionViewCell {
+class ArticleCell: UICollectionViewCell {
     
     // MARK: - IBOutlets
     @IBOutlet weak var imgStory: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
-
+    
+    // MARK: - Global Variable
+    var type: CellType = .topSubStories
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,5 +34,16 @@ class ShowMoreNewsCell: UICollectionViewCell {
                 self?.imgStory.layer.borderColor = UIColor.clear.cgColor
             }
         }, completion: nil)
+    }
+    
+    // MARK: - Configure Cell
+    func configureCell(title : String, imageURL: String, type : CellType) {
+        lblTitle.text = title
+        self.type = type
+        
+        let imgURL = String(format: "%@%@",APPCONST.imageBaseURL,imageURL)
+        //print("Top Story - imgUrl is \(imgURL)")
+        imgStory.sd_setImage(with: URL(string:  imgURL), placeholderImage: UIImage(named: "gs_default"))
+        imgStory.contentMode = .scaleAspectFill
     }
 }

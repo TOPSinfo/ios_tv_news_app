@@ -18,6 +18,7 @@ class DetailsVC: UIViewController, TVApplicationControllerDelegate {
     var selectedNews: Article?
     var selectedGplusNews: GplusStoryDocument?
     var selectedCityNews: Article?
+    var selectedIndiaNews: Article?
     var selectedMumbaiNews: Article?
     var selectedWorldNews: Article?
     
@@ -55,6 +56,11 @@ class DetailsVC: UIViewController, TVApplicationControllerDelegate {
             strHeadingOne = selectedMumbaiNews?.subHeadingOne ?? ""
             strHeadingTwo = selectedMumbaiNews?.subHeadingTwo ?? ""
             strContent = selectedMumbaiNews?.content ?? ""
+        }else if selectedIndiaNews != nil {
+            strHeading = selectedIndiaNews?.heading ?? ""
+            strHeadingOne = selectedIndiaNews?.subHeadingOne ?? ""
+            strHeadingTwo = selectedIndiaNews?.subHeadingTwo ?? ""
+            strContent = selectedIndiaNews?.content ?? ""
         }else if selectedWorldNews != nil {
             strHeading = selectedWorldNews?.heading ?? ""
             strHeadingOne = selectedWorldNews?.subHeadingOne ?? ""

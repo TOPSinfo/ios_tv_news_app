@@ -50,6 +50,8 @@ struct APPCONST{
     static let videoImageBaseURL = "https://videos.gujaratsamachar.com/"
     static let videoBaseURL = "https://videos.gujaratsamachar.com/"
 }
+
+// MARK: - APICall
 struct APICall
 {
     static let topStories = "https://www.gujaratsamachar.com/api/top-stories?isMobile=true&pageIndex="
@@ -64,6 +66,7 @@ struct APICall
     static let gEpaperDetails = "https://epaperadmin.gujaratsamachar.com/ws/v1/detail_page"
 }
 
+// MARK: - Extension UIView
 extension UIView {
     func setRadiusToView(cornerRadius : CGFloat){
         self.layer.cornerRadius = cornerRadius
@@ -78,6 +81,7 @@ extension UIView {
     
 }
 
+// MARK: - String
 extension String {
     var htmlToAttributedString: NSAttributedString? {
         guard let data = data(using: .utf8) else { return nil }
@@ -89,6 +93,7 @@ extension String {
     }
 }
 
+// MARK: - UIColor
 extension UIColor {
     convenience init(hex: String) {
         var hexString = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
@@ -106,4 +111,29 @@ extension UIColor {
 
         self.init(red: red, green: green, blue: blue, alpha: 1.0)
     }
+}
+
+// MARK: - Get API URL
+func getAPIURL(newsDataType : Int, pageNumber : Int) -> String{
+    var strURL : String = ""
+    switch newsDataType {
+    case NewsDataType.topStories.rawValue:
+        strURL = APICall.topStories + "\(pageNumber)"
+    case NewsDataType.topSubStories.rawValue:
+        strURL = APICall.Articles + "\(pageNumber)"
+    case NewsDataType.gPlusTopStories.rawValue:
+        strURL = APICall.gPlusStories + "\(pageNumber)"
+    case NewsDataType.cityNews.rawValue:
+        strURL = APICall.ahdNewsList + "\(pageNumber)"
+    case NewsDataType.mumbaiNews.rawValue:
+        strURL = APICall.mumbaiNewsList + "\(pageNumber)"
+    case NewsDataType.indiaNews.rawValue:
+        strURL = APICall.indiaNewsList + "\(pageNumber)"
+    case NewsDataType.worldNews.rawValue:
+        strURL = APICall.worldNewsList + "\(pageNumber)"
+    default:
+        strURL = ""
+    }
+    
+    return strURL
 }

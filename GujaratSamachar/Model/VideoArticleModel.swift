@@ -58,7 +58,7 @@ struct Datum : Codable {
 
 }
 
-struct VideoArticle : Codable {
+struct VideoArticleModel : Codable {
     let message : String?
     let data : [Datum]?
     let code : Int?

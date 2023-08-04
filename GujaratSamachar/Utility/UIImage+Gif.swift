@@ -7,6 +7,7 @@
 import UIKit
 import ImageIO
 
+// MARK: - Extension UIImageView
 extension UIImageView {
     public func loadGif(name: String) {
         DispatchQueue.global().async {
@@ -28,6 +29,7 @@ extension UIImageView {
 
 }
 
+// MARK: - Extension UIImage
 extension UIImage {
 
     public class func gif(data: Data) -> UIImage? {
