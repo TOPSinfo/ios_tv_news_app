@@ -14,7 +14,6 @@ class EpaperDetailsVC: UIViewController {
     @IBOutlet weak var imgNewPaper: UIImageView!
     
     // MARK: - Global Variable
-    var arrEpaperDetails : [EpaperImage] = [EpaperImage]()
     var strSelectedDate = ""
     var strSelectedEpaperID = ""
     
@@ -29,12 +28,40 @@ class EpaperDetailsVC: UIViewController {
     // Movement limitations
     let maximumTranslation: CGFloat = 100.0
     
+    // MARK: - Model and View Model Reference Variable
+    var ePaperDetailsModel : EpaperDetailsModel?
+    var ePaperDetailViewModel = EpaperDetailViewModel()
+    
+    var arrData : [Any] = [Any]()
+    
     // MARK: - Viewcontroller life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureControl()
+    }
+    
+    
+    // MARK: - Configure Control
+    func configureControl() {
         registerNibs()
-        makeAPIRequestToGetEpaperDetails(selectedDate: strSelectedDate, selectedEpaperID: strSelectedEpaperID)
+        ePaperDetailViewModel.getData(selectedDate: strSelectedDate, selectedEpaperID: strSelectedEpaperID)
+        
+        ePaperDetailViewModel.action = { [self] in
+            arrData = ePaperDetailViewModel.arrEpaperDetails
+            if arrData.count > 0 {
+                if let objEpaperImage : EpaperImage = self.arrData.first as? EpaperImage {
+                    imgNewPaper.sd_setImage(with: URL(string: objEpaperImage.imageName), placeholderImage: UIImage(named: "gs_default"))
+                }
+            }
+            reloadClv()
+        }
+    }
+    
+    // MARK: - Reload Table
+    func reloadClv(){
+        DispatchQueue.main.async { [self] in
+            collViewPaperDetail.reloadData()
+        }
     }
     
     func registerNibs(){
@@ -108,7 +135,7 @@ class EpaperDetailsVC: UIViewController {
 // MARK: - Collection Delegate and Datasource Methods
 extension EpaperDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return arrEpaperDetails.count
+        return arrData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -118,10 +145,11 @@ extension EpaperDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource,
         cell.layer.cornerRadius = 10
         cell.layer.borderWidth = 0.0
         cell.layer.borderColor = UIColor.clear.cgColor
-        cell.lblPageNumbers.text = "Page \(arrEpaperDetails[indexPath.row].pageNumber)"
-        
-        let strImgUrl = arrEpaperDetails[indexPath.row].imageNameThumbnail
-        cell.imgPaper.sd_setImage(with: URL(string: strImgUrl), placeholderImage: UIImage(named: "gs_default"))
+        if let objEpaperImage : EpaperImage = self.arrData[indexPath.row] as? EpaperImage {
+            cell.lblPageNumbers.text = "Page \(objEpaperImage.pageNumber)"
+            let strImgUrl = objEpaperImage.imageNameThumbnail
+            cell.imgPaper.sd_setImage(with: URL(string: strImgUrl), placeholderImage: UIImage(named: "gs_default"))
+        }
         return cell
     }
     
@@ -137,8 +165,10 @@ extension EpaperDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Handle item selection
-        let selectedImageName = arrEpaperDetails[indexPath.row].imageName
-        imgNewPaper.sd_setImage(with: URL(string: selectedImageName), placeholderImage: UIImage(named: "gs_default"))
+        if let objEpaperImage : EpaperImage = self.arrData[indexPath.row] as? EpaperImage {
+            let selectedImageName = objEpaperImage.imageName
+            imgNewPaper.sd_setImage(with: URL(string: selectedImageName), placeholderImage: UIImage(named: "gs_default"))
+        }
     }
     
     // MARK: - Did Update Focus
@@ -158,62 +188,12 @@ extension EpaperDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource,
                 nextCell.layer.borderWidth = 5.0
                 nextCell.layer.borderColor = UIColor.red.cgColor
                 
-                let selectedImageName = arrEpaperDetails[nextIndexPath.row].imageName
-                imgNewPaper.sd_setImage(with: URL(string: selectedImageName), placeholderImage: UIImage(named: "gs_default"))
-            }
-        }
-    }
-}
-
-extension EpaperDetailsVC {
-    // MARK: - API Call
-    func makeAPIRequestToGetEpaperDetails(selectedDate: String, selectedEpaperID: String) {
-        guard let url = URL(string: APICall.gEpaperDetails) else {
-            print("Invalid URL")
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        
-        // Create the parameter string in Form-Data format
-        let parameters = "selected_date=\(selectedDate)&epaper_id=\(selectedEpaperID)"
-        let formData = parameters.data(using: .utf8)
-        
-        // Set the content-type header for Form-Data
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        
-        request.httpBody = formData
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) { [self] (data, response, error) in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                print("Invalid response")
-                return
-            }
-            
-            if httpResponse.statusCode == 200, let data = data {
-                do {
-                    let epaperDetails = try JSONDecoder().decode(EpaperDetailsModel.self, from: data)
-                    arrEpaperDetails = epaperDetails.data.epaperImages
-                    if let firstImageName = arrEpaperDetails.first?.imageName {
-                        imgNewPaper.sd_setImage(with: URL(string: firstImageName), placeholderImage: UIImage(named: "gs_default"))
-                    }
-                    DispatchQueue.main.async { [self] in
-                        collViewPaperDetail.reloadData()
-                    }
-                } catch {
-                    debugPrint(error)
+                if let objEpaperImage : EpaperImage = self.arrData[nextIndexPath.row] as? EpaperImage {
+                    let selectedImageName = objEpaperImage.imageName
+                    imgNewPaper.sd_setImage(with: URL(string: selectedImageName), placeholderImage: UIImage(named: "gs_default"))
                 }
-            } else {
-                print("HTTP Error: \(httpResponse.statusCode)")
+                
             }
         }
-        task.resume()
     }
 }

@@ -30,4 +30,13 @@ class EpaperViewCollectionViewCell: UICollectionViewCell {
             }
         }, completion: nil)
     }
+    
+    // MARK: - Configure Cell
+    func configureCell(categoryName : String, latestEpaperDate: String, imgName : String) {
+        lblPaper.text = categoryName
+        lblPaperDate.text = latestEpaperDate
+        let strImgUrl = imgName
+        imgPaper.sd_setImage(with: URL(string: strImgUrl), placeholderImage: UIImage(named: "gs_default"))
+    }
+
 }

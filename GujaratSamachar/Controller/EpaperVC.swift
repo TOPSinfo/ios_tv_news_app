@@ -14,19 +14,40 @@ class EpaperVC: UIViewController {
     @IBOutlet weak var collViewPaper: UICollectionView!
     
     // MARK: - Global Variable
-    var arrMainEditions : [Main_editions] = [Main_editions]()
-    var arrMagazines : [Magazines] = [Magazines]()
-    var arrDistrictEditions : [District_editions] = [District_editions]()
     var paperType: CellpaperType = .mainEdition
     var strSelectedEpaperID = ""
     var strSelectedDate = ""
     
+    // MARK: - Model and View Model Reference Variable
+    var ePaperListModel : EpaperListModel?
+    var ePaperListViewModel = EpaperListViewModel()
+    
+    var arrData : [Any] = [Any]()
+    
     // MARK: - Viewcontroller life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureControl()
+    }
+    
+    // MARK: - Configure Control
+    func configureControl() {
         registerNibs()
-        makeAPIRequestToGetEpaper()
+        
+        ePaperListViewModel.getData()
+        
+        ePaperListViewModel.action = { [self] in
+            arrData = ePaperListViewModel.arrMainEditions
+            reloadClv()
+        }
+        
+    }
+    
+    // MARK: - Reload Table
+    func reloadClv(){
+        DispatchQueue.main.async { [self] in
+            collViewPaper.reloadData()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -41,16 +62,19 @@ class EpaperVC: UIViewController {
     // MARK: - IBAction methods
     @IBAction func btnMainEditionsClicked(_ sender: Any) {
         paperType = .mainEdition
+        arrData = ePaperListViewModel.arrMainEditions
         collViewPaper.reloadData()
     }
     
     @IBAction func btnDistrictEditionsClicked(_ sender: Any) {
         paperType = .districtEdition
+        arrData = ePaperListViewModel.arrDistrictEditions
         collViewPaper.reloadData()
     }
     
     @IBAction func btnMagazinesClicked(_ sender: Any) {
         paperType = .magazines
+        arrData = ePaperListViewModel.arrMagazines
         collViewPaper.reloadData()
     }
 }
@@ -58,14 +82,7 @@ class EpaperVC: UIViewController {
 // MARK: - Collection Delegate and Datasource Methods
 extension EpaperVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch paperType {
-        case .mainEdition:
-            return arrMainEditions.count
-        case .magazines:
-            return arrMagazines.count
-        case .districtEdition:
-            return arrDistrictEditions.count
-        }
+        return arrData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -75,25 +92,21 @@ extension EpaperVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         cell.layer.cornerRadius = 10
         cell.layer.borderWidth = 0.0
         cell.layer.borderColor = UIColor.clear.cgColor
-       
+        
         switch paperType {
         case .mainEdition:
-            cell.lblPaper.text = arrMainEditions[indexPath.row].category_name
-            cell.lblPaperDate.text = arrMainEditions[indexPath.row].latest_epaper_date
-            let strImgUrl = arrMainEditions[indexPath.row].image_name ?? ""
-            cell.imgPaper.sd_setImage(with: URL(string: strImgUrl), placeholderImage: UIImage(named: "gs_default"))
+            if let objMainEditions : Main_editions = self.arrData[indexPath.row] as? Main_editions {
+                cell.configureCell(categoryName: objMainEditions.category_name ?? "", latestEpaperDate: objMainEditions.latest_epaper_date ?? "", imgName: objMainEditions.image_name ?? "")
+            }
         case .magazines:
-            cell.lblPaper.text = arrMagazines[indexPath.row].category_name
-            cell.lblPaperDate.text = arrMagazines[indexPath.row].latest_epaper_date
-            let strImgUrl = arrMagazines[indexPath.row].image_name ?? ""
-            cell.imgPaper.sd_setImage(with: URL(string: strImgUrl), placeholderImage: UIImage(named: "gs_default"))
+            if let objMagazines : Magazines = self.arrData[indexPath.row] as? Magazines {
+                cell.configureCell(categoryName: objMagazines.category_name ?? "", latestEpaperDate: objMagazines.latest_epaper_date ?? "", imgName: objMagazines.image_name ?? "")
+            }
         case .districtEdition:
-            cell.lblPaper.text = arrDistrictEditions[indexPath.row].category_name
-            cell.lblPaperDate.text = arrDistrictEditions[indexPath.row].latest_epaper_date
-            let strImgUrl = arrDistrictEditions[indexPath.row].image_name ?? ""
-            cell.imgPaper.sd_setImage(with: URL(string: strImgUrl), placeholderImage: UIImage(named: "gs_default"))
+            if let objDistrictEditions : District_editions = self.arrData[indexPath.row] as? District_editions {
+                cell.configureCell(categoryName: objDistrictEditions.category_name ?? "", latestEpaperDate: objDistrictEditions.latest_epaper_date ?? "", imgName: objDistrictEditions.image_name ?? "")
+            }
         }
-        
         return cell
     }
     
@@ -105,16 +118,22 @@ extension EpaperVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       switch paperType {
+        switch paperType {
         case .mainEdition:
-            strSelectedDate = arrMainEditions[indexPath.row].latest_epaper_date ?? ""
-            strSelectedEpaperID = arrMainEditions[indexPath.row].epaper_id ?? ""
+            if let objMainEditions : Main_editions = self.arrData[indexPath.row] as? Main_editions {
+                strSelectedDate = objMainEditions.latest_epaper_date ?? ""
+                strSelectedEpaperID = objMainEditions.epaper_id ?? ""
+            }
         case .magazines:
-            strSelectedDate = arrMagazines[indexPath.row].latest_epaper_date ?? ""
-            strSelectedEpaperID = arrMagazines[indexPath.row].epaper_id ?? ""
+            if let objMagazines : Magazines = self.arrData[indexPath.row] as? Magazines {
+                strSelectedDate = objMagazines.latest_epaper_date ?? ""
+                strSelectedEpaperID = objMagazines.epaper_id ?? ""
+            }
         case .districtEdition:
-            strSelectedDate = arrDistrictEditions[indexPath.row].latest_epaper_date ?? ""
-            strSelectedEpaperID = arrDistrictEditions[indexPath.row].epaper_id ?? ""
+            if let objDistrictEditions : District_editions = self.arrData[indexPath.row] as? District_editions {
+                strSelectedDate = objDistrictEditions.latest_epaper_date ?? ""
+                strSelectedEpaperID = objDistrictEditions.epaper_id ?? ""
+            }
         }
         
         if let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "EpaperDetailsVC") as? EpaperDetailsVC {
@@ -141,47 +160,5 @@ extension EpaperVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                 nextCell.layer.borderColor = UIColor.red.cgColor
             }
         }
-    }
-}
-
-
-extension EpaperVC {
-    // MARK: - API Call
-    func makeAPIRequestToGetEpaper() {
-        guard let url = URL(string: APICall.gEpaper) else {
-            print("Invalid URL")
-            return
-        }
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: url) { [self] (data, response, error) in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                print("Invalid response")
-                return
-            }
-            
-            if httpResponse.statusCode == 200, let data = data {
-                do {
-                    let gplusStory = try JSONDecoder().decode(EpaperListModel.self, from: data)
-                    arrMainEditions = gplusStory.data?.main_editions ?? []
-                    arrMagazines = gplusStory.data?.magazines ?? []
-                    arrDistrictEditions = gplusStory.data?.district_editions ?? []
-                    
-                    DispatchQueue.main.async { [self] in
-                        collViewPaper.reloadData()
-                    }
-                } catch {
-                    debugPrint(error)
-                }
-            } else {
-                print("HTTP Error: \(httpResponse.statusCode)")
-            }
-        }
-        task.resume()
     }
 }
