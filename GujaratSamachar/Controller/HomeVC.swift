@@ -29,11 +29,13 @@ class HomeVC: UIViewController {
     func configureControl() {
         setUpTableView()
         
+        //Get TopStory, Top SubStories, Ahmedabad(City), Mumbai, Indai, World news and reload data
         storyViewModel.getData(pageNumber: 1)
         storyViewModel.action = { [self] in
             reloadTBL()
         }
         
+        //Get G-Plus story news and reload data
         gPlusViewModel.getData(pageNumber: 1)
         gPlusViewModel.action = {[self] in
             reloadTBL()
@@ -127,6 +129,7 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
         return false
     }
     
+    // MARK: - Show More Click
     @objc func btnShowMoreClicked(_ sender:UIButton)
     {
         print("show more index is \(sender.tag)")

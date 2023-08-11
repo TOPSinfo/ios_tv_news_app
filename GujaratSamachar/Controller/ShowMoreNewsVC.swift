@@ -19,7 +19,6 @@ class ShowMoreNewsVC: UIViewController {
     var gPlusModel : GplusStoryModel?
     var gPlusViewModel = GplusStoryViewModel()
     
-    
     // MARK: - Global Variable
     var arrData : [Any] = [Any]()
     var selectedNewsDataType: NewsDataType = .topStories

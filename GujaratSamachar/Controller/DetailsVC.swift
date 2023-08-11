@@ -8,7 +8,6 @@
 import TVMLKit
 import UIKit
 
-
 class DetailsVC: UIViewController, TVApplicationControllerDelegate {
     
     // MARK: - IBOutlets
@@ -22,6 +21,7 @@ class DetailsVC: UIViewController, TVApplicationControllerDelegate {
     var selectedMumbaiNews: Article?
     var selectedWorldNews: Article?
     
+    //News Details Variables
     var strHeading : String = ""
     var strHeadingOne : String = ""
     var strHeadingTwo : String = ""
@@ -156,8 +156,6 @@ class DetailsVC: UIViewController, TVApplicationControllerDelegate {
             txtViewDescription.text = htmlContent
         }
         txtViewDescription.panGestureRecognizer.allowedTouchTypes = [NSNumber(value: UITouch.TouchType.indirect.rawValue)]
-
-
     }
     
     // MARK: - IBAction methods

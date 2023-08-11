@@ -30,17 +30,22 @@ class EpaperVC: UIViewController {
         configureControl()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collViewPaper.reloadData()
+    }
+    
     // MARK: - Configure Control
     func configureControl() {
         registerNibs()
         
+        //Get E-Papers and reload data
         ePaperListViewModel.getData()
         
         ePaperListViewModel.action = { [self] in
             arrData = ePaperListViewModel.arrMainEditions
             reloadClv()
         }
-        
     }
     
     // MARK: - Reload Table
@@ -48,11 +53,6 @@ class EpaperVC: UIViewController {
         DispatchQueue.main.async { [self] in
             collViewPaper.reloadData()
         }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        collViewPaper.reloadData()
     }
     
     func registerNibs(){

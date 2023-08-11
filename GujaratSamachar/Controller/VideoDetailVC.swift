@@ -41,7 +41,6 @@ class VideoDetailVC: UIViewController {
         self.lblDesc.text = videoData.metaDescriptions
         self.play()
     }
-
 }
 
 extension VideoDetailVC {
@@ -79,15 +78,17 @@ extension VideoDetailVC {
         NotificationCenter.default.addObserver(self, selector: #selector(itemDidFinishPlaying(_:)), name: .AVPlayerItemDidPlayToEndTime, object: self.playerview.player?.currentItem)
     }
     
+    //Item(Player) Did Finish Playing
     @objc func itemDidFinishPlaying(_ notification: Notification) {
-    
         removeObser()
     }
     
+    //Remove Observer
     func removeObser() {
         NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: self.playerview.player?.currentItem)
     }
     
+    //Stop Video OnDisappear Observer
     func stopVideoOnDisappear(){
         if playerview != nil {
             

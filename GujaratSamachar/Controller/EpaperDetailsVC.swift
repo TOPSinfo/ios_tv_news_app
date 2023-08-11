@@ -40,7 +40,6 @@ class EpaperDetailsVC: UIViewController {
         configureControl()
     }
     
-    
     // MARK: - Configure Control
     func configureControl() {
         registerNibs()
@@ -128,8 +127,6 @@ class EpaperDetailsVC: UIViewController {
         let transform = CGAffineTransform(scaleX: scale, y: scale).translatedBy(x: translation.x, y: translation.y)
         imgNewPaper.transform = transform
     }
-    
-    
 }
 
 // MARK: - Collection Delegate and Datasource Methods
@@ -192,7 +189,6 @@ extension EpaperDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource,
                     let selectedImageName = objEpaperImage.imageName
                     imgNewPaper.sd_setImage(with: URL(string: selectedImageName), placeholderImage: UIImage(named: "gs_default"))
                 }
-                
             }
         }
     }
